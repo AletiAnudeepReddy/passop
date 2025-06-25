@@ -1,5 +1,6 @@
 import React from 'react'
 import { useRef, useState, useEffect } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
 
 const Manager = () => {
   const ref = useRef()
@@ -34,14 +35,38 @@ const Manager = () => {
   const handleChange = (e) => {
     setform({ ...form, [e.target.name]: e.target.value })
   }
-  const copyText=(text)=>{
+  const copyText = (text) => {
+    toast('Copied to Clipboard!', {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+
+    });
     navigator.clipboard.writeText(text)
   }
 
   return (
     <>
-      <div className="absolute inset-0 -z-10 h-full w-full bg-green-50 bg-[linear-gradient(to_right,#93f6a8,transparent_1px),linear-gradient(to_bottom,#93f6a8,transparent_1px)] bg-[size:6rem_4rem]">
-        <div className="absolute bottom-0 left-0 right-0 top-0 bg-[radial-gradient(circle_800px_at_100%_200px,#93f6a8,transparent)]">
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+
+      />
+      <div className="absolute inset-0 -z-10 h-full w-full bg-green-50 bg-[linear-gradient(to_right,#affbbb,transparent_1px),linear-gradient(to_bottom,#affbbb,transparent_1px)] bg-[size:6rem_4rem]">
+        <div className="absolute bottom-0 left-0 right-0 top-0 bg-[radial-gradient(circle_800px_at_100%_200px,#affbbb,transparent)]">
         </div>
       </div>
       <div className=' w-auto mycontainer'>
@@ -51,11 +76,11 @@ const Manager = () => {
         </h1>
         <p className='text-green-900 text-lg text-center '>Your own Password Manager</p>
         <div className='text-black flex flex-col p-3 gap-6 items-center'>
-          <input value={form.site} onChange={handleChange} placeholder='Enter website URL' className='rounded-full border border-green-600 w-full p-3 py-1' type='text' name='site' />
+          <input value={form.site} onChange={handleChange} placeholder='Enter website URL' className='rounded-full border border-green-600 w-full p-3 py-2' type='text' name='site' />
           <div className='flex w-full justify-between gap-6'>
-            <input value={form.username} onChange={handleChange} placeholder='Enter Username' className='rounded-full border border-green-600 w-full p-3 py-1' type='text' name='username' />
+            <input value={form.username} onChange={handleChange} placeholder='Enter Username' className='rounded-full border border-green-600 w-full p-3 py-2' type='text' name='username' />
             <div className='relative'>
-              <input ref={passwordRef} value={form.password} onChange={handleChange} placeholder='Enter Password' className='rounded-full border border-green-600 w-full p-3 py-1' type='password' name='password' />
+              <input ref={passwordRef} value={form.password} onChange={handleChange} placeholder='Enter Password' className='rounded-full border border-green-600 w-full p-3 py-2' type='password' name='password' />
               <span className='absolute right-[3px] top-[2px] cursor-pointer opacity-40' onClick={showPassword}>
                 <img ref={ref} className='p-1' width={32} src='icons/eye.png' alt='eye' />
               </span>
@@ -85,7 +110,7 @@ const Manager = () => {
                   <td className='py-2 text-center border border-white'>
                     <div className='flex items-center justify-center'>
                       <a href={item.site} target='_blank'>{item.site}</a>
-                      <div className='lordiconcopy size-7 cursor-pointer' onClick={()=>{copyText(item.site)}}>
+                      <div className='lordiconcopy size-7 cursor-pointer' onClick={() => { copyText(item.site) }}>
                         <lord-icon
                           style={{ "width": "25px", "height": "25px", "paddingTop": "3px", "paddingLeft": "3px" }}
                           src="https://cdn.lordicon.com/iykgtsbt.json"
@@ -97,7 +122,7 @@ const Manager = () => {
                   <td className='justify-center py-2 text-center border border-white'>
                     <div className='flex items-center justify-center'>
                       <span>{item.username}</span>
-                      <div className='lordiconcopy size-7 cursor-pointer' onClick={()=>{copyText(item.username)}}>
+                      <div className='lordiconcopy size-7 cursor-pointer' onClick={() => { copyText(item.username) }}>
                         <lord-icon
                           style={{ "width": "25px", "height": "25px", "paddingTop": "3px", "paddingLeft": "3px" }}
                           src="https://cdn.lordicon.com/iykgtsbt.json"
@@ -109,7 +134,7 @@ const Manager = () => {
                   <td className='flex items-center justify-center py-2 text-center border border-white'>
                     <div className='flex items-center justify-center'>
                       <span>{item.password}</span>
-                      <div className='lordiconcopy size-7 cursor-pointer' onClick={()=>{copyText(item.password)}}>
+                      <div className='lordiconcopy size-7 cursor-pointer' onClick={() => { copyText(item.password) }}>
                         <lord-icon
                           style={{ "width": "25px", "height": "25px", "paddingTop": "3px", "paddingLeft": "3px" }}
                           src="https://cdn.lordicon.com/iykgtsbt.json"
